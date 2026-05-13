@@ -34,7 +34,7 @@ Download it and try it out for free!  **https://piebald.ai/**
 > [!important]
 > **NEW (January 23, 2026): We've added all of Claude Code's ~40 system reminders to this list&mdash;see [System Reminders](#system-reminders).**
 
-This repository contains an up-to-date list of all Claude Code's various system prompts and their associated token counts as of **[Claude Code v2.1.139](https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.139) (May 11th, 2026).**  It also contains a [**CHANGELOG.md**](./CHANGELOG.md) for the system prompts across 176 versions since v2.0.14.  From the team behind [<img src="https://github.com/Piebald-AI/piebald/raw/main/assets/logo.svg" width="15"> **Piebald.**](https://piebald.ai/)
+This repository contains an up-to-date list of all Claude Code's various system prompts and their associated token counts as of **[Claude Code v2.1.140](https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.140) (May 12th, 2026).**  It also contains a [**CHANGELOG.md**](./CHANGELOG.md) for the system prompts across 177 versions since v2.0.14.  From the team behind [<img src="https://github.com/Piebald-AI/piebald/raw/main/assets/logo.svg" width="15"> **Piebald.**](https://piebald.ai/)
 
 **This repository is updated within minutes of each Claude Code release.  See the [changelog](./CHANGELOG.md), and follow [@PiebaldAI](https://x.com/PiebaldAI) on X for a summary of the system prompt changes in each release.**
 
@@ -116,11 +116,11 @@ Sub-agents and utilities.
 - [Agent Prompt: Quick git commit](./system-prompts/agent-prompt-quick-git-commit.md) (**574** tks) - Streamlined prompt for creating a single git commit with pre-populated context.
 - [Agent Prompt: Recent Message Summarization](./system-prompts/agent-prompt-recent-message-summarization.md) (**804** tks) - Agent prompt used for summarizing recent messages.
 - [Agent Prompt: Security monitor for autonomous agent actions (first part)](./system-prompts/agent-prompt-security-monitor-for-autonomous-agent-actions-first-part.md) (**3332** tks) - Instructs Claude to act as a security monitor that evaluates autonomous coding agent actions against block/allow rules to prevent prompt injection, scope creep, and accidental damage.
-- [Agent Prompt: Security monitor for autonomous agent actions (second part)](./system-prompts/agent-prompt-security-monitor-for-autonomous-agent-actions-second-part.md) (**3972** tks) - Defines the environment context, block rules, and allow exceptions that govern which tool actions the agent may or may not perform.
+- [Agent Prompt: Security monitor for autonomous agent actions (second part)](./system-prompts/agent-prompt-security-monitor-for-autonomous-agent-actions-second-part.md) (**4136** tks) - Defines the environment context, block rules, and allow exceptions that govern which tool actions the agent may or may not perform.
 - [Agent Prompt: Session search](./system-prompts/agent-prompt-session-search.md) (**158** tks) - Subagent prompt for searching past Claude Code conversation sessions by scanning .jsonl transcript files and returning matching session IDs.
 - [Agent Prompt: Session title and branch generation](./system-prompts/agent-prompt-session-title-and-branch-generation.md) (**307** tks) - Agent for generating succinct session titles and git branch names.
 - [Agent Prompt: WebFetch summarizer](./system-prompts/agent-prompt-webfetch-summarizer.md) (**189** tks) - Prompt for agent that summarizes verbose output from WebFetch for the main model.
-- [Agent Prompt: Worker fork](./system-prompts/agent-prompt-worker-fork.md) (**258** tks) - System prompt for a forked worker sub-agent that executes a single directive from the parent agent and reports back concisely.
+- [Agent Prompt: Worker fork](./system-prompts/agent-prompt-worker-fork.md) (**254** tks) - System prompt for a forked worker sub-agent that executes a single directive from the parent agent and reports back concisely.
 
 ### Data
 
@@ -313,6 +313,7 @@ Text for large system reminders.
 
 **Additional notes for some Tool Descriptions**
 
+- [Tool Description: Agent (simple usage notes)](./system-prompts/tool-description-agent-simple-usage-notes.md) (**324** tks) - Simplified usage notes for the Agent tool, including when to delegate, fork behavior, resumption, worktree isolation, background execution, parallel launches, and context restrictions.
 - [Tool Description: Agent (usage notes)](./system-prompts/tool-description-agent-usage-notes.md) (**791** tks) - Usage notes and instructions for the Task/Agent tool, including guidance on launching subagents, background execution, resumption, and worktree isolation.
 - [Tool Description: AskUserQuestion (preview field)](./system-prompts/tool-description-askuserquestion-preview-field.md) (**134** tks) - Instructions for using the HTML preview field on single-select question options to display visual artifacts like UI mockups, code snippets, and diagrams.
 - [Tool Description: Background monitor (streaming events)](./system-prompts/tool-description-background-monitor-streaming-events.md) (**1401** tks) - Describes the background monitor tool that streams stdout events from long-running scripts as chat notifications, with guidelines on script quality, output volume, and selective filtering.
@@ -361,10 +362,10 @@ Text for large system reminders.
 - [Tool Description: Bash (verify parent directory)](./system-prompts/tool-description-bash-verify-parent-directory.md) (**38** tks) - Bash tool instruction: verify parent directory before creating files.
 - [Tool Description: Bash (working directory)](./system-prompts/tool-description-bash-working-directory.md) (**37** tks) - Bash tool note about working directory persistence and shell state.
 - [Tool Description: SendMessageTool (non-agent-teams)](./system-prompts/tool-description-sendmessagetool-non-agent-teams.md) (**226** tks) - Send a message the user will read, describes this tool well.
-- [Tool Description: Snooze (delay and reason guidance)](./system-prompts/tool-description-snooze-delay-and-reason-guidance.md) (**608** tks) - Extends the snooze tool description with guidance on choosing delaySeconds relative to the 5-minute prompt cache TTL and writing informative reason fields.
+- [Tool Description: Snooze (delay and reason guidance)](./system-prompts/tool-description-snooze-delay-and-reason-guidance.md) (**732** tks) - Extends the snooze tool description with guidance on choosing delaySeconds relative to the 5-minute prompt cache TTL and writing informative reason fields.
 - [Tool Description: TaskList (teammate workflow)](./system-prompts/tool-description-tasklist-teammate-workflow.md) (**133** tks) - Conditional section appended to TaskList tool description.
 - [Tool Description: ToolSearch (second part)](./system-prompts/tool-description-toolsearch-second-part.md) (**202** tks) - The bulk of the tool description.
-- [Tool Description: Write (read existing file first)](./system-prompts/tool-description-write-read-existing-file-first.md) (**70** tks) - Tool description for Write in environments where existing files must be read before overwrite.
+- [Tool Description: Write (read existing file first)](./system-prompts/tool-description-write-read-existing-file-first.md) (**84** tks) - Tool description for Write in environments where existing files must be read before overwrite.
 - [Tool Description: request_teach_access (part of teach mode)](./system-prompts/tool-description-request_teach_access-part-of-teach-mode.md) (**139** tks) - Describes a tool that requests permission to guide the user through a task step-by-step using fullscreen tooltip overlays instead of direct access.
 - [Tool Parameter: Computer action](./system-prompts/tool-parameter-computer-action.md) (**251** tks) - Action parameter options for the Chrome browser computer tool.
 
