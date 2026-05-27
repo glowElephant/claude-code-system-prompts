@@ -34,7 +34,7 @@ Download it and try it out for free!  **https://piebald.ai/**
 > [!important]
 > **NEW (January 23, 2026): We've added all of Claude Code's ~40 system reminders to this list&mdash;see [System Reminders](#system-reminders).**
 
-This repository contains an up-to-date list of all Claude Code's various system prompts and their associated token counts as of **[Claude Code v2.1.150](https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.150) (May 22nd, 2026).**  It also contains a [**CHANGELOG.md**](./CHANGELOG.md) for the system prompts across 187 versions since v2.0.14.  From the team behind [<img src="https://github.com/Piebald-AI/piebald/raw/main/assets/logo.svg" width="15"> **Piebald.**](https://piebald.ai/)
+This repository contains an up-to-date list of all Claude Code's various system prompts and their associated token counts as of **[Claude Code v2.1.152](https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.152) (May 26th, 2026).**  It also contains a [**CHANGELOG.md**](./CHANGELOG.md) for the system prompts across 188 versions since v2.0.14.  From the team behind [<img src="https://github.com/Piebald-AI/piebald/raw/main/assets/logo.svg" width="15"> **Piebald.**](https://piebald.ai/)
 
 **This repository is updated within minutes of each Claude Code release.  See the [changelog](./CHANGELOG.md), and follow [@PiebaldAI](https://x.com/PiebaldAI) on X for a summary of the system prompt changes in each release.**
 
@@ -88,13 +88,14 @@ Sub-agents and utilities.
 
 - [Agent Prompt: /batch slash command](./system-prompts/agent-prompt-batch-slash-command.md) (**1106** tks) - Instructions for orchestrating a large, parallelizable change across a codebase.
 - [Agent Prompt: /code-review part 1 base finder angles](./system-prompts/agent-prompt-code-review-part-1-base-finder-angles.md) (**315** tks) - Shared base finder-angle instructions for the /code-review slash command covering line-by-line diff scanning, removed behavior, and cross-file tracing.
-- [Agent Prompt: /code-review part 2 low effort mode](./system-prompts/agent-prompt-code-review-part-2-low-effort-mode.md) (**312** tks) - Low-effort /code-review prompt that reads the diff once and returns up to four hunk-visible runtime correctness findings.
-- [Agent Prompt: /code-review part 3 extra-high and maximum effort modes](./system-prompts/agent-prompt-code-review-part-3-extra-high-and-maximum-effort-modes.md) (**274** tks) - Extra-high and maximum-effort /code-review prompt that runs five finder angles, one-vote verification, a gap sweep, and capped JSON findings.
+- [Agent Prompt: /code-review part 2 low effort mode](./system-prompts/agent-prompt-code-review-part-2-low-effort-mode.md) (**345** tks) - Low-effort /code-review prompt that reads the diff once and returns up to four hunk-visible runtime correctness findings.
+- [Agent Prompt: /code-review part 3 extra-high and maximum effort modes](./system-prompts/agent-prompt-code-review-part-3-extra-high-and-maximum-effort-modes.md) (**363** tks) - Extra-high and maximum-effort /code-review prompt that runs five finder angles, one-vote verification, a gap sweep, and capped JSON findings.
 - [Agent Prompt: /code-review part 4 three-state verification phase](./system-prompts/agent-prompt-code-review-part-4-three-state-verification-phase.md) (**206** tks) - Verification phase for /code-review that asks one agent verifier to classify each candidate as confirmed, plausible, or refuted.
 - [Agent Prompt: /code-review part 5 recall-biased verification phase](./system-prompts/agent-prompt-code-review-part-5-recall-biased-verification-phase.md) (**293** tks) - Recall-biased /code-review verification phase that treats realistic uncertain findings as plausible unless code refutes them.
-- [Agent Prompt: /code-review part 6 medium effort mode](./system-prompts/agent-prompt-code-review-part-6-medium-effort-mode.md) (**223** tks) - Medium-effort /code-review prompt that favors precision with three finder angles, one-vote verification, and up to eight JSON findings.
-- [Agent Prompt: /code-review part 7 high effort mode](./system-prompts/agent-prompt-code-review-part-7-high-effort-mode.md) (**256** tks) - High-effort /code-review prompt that favors recall with three finder angles, recall-biased verification, and up to ten JSON findings.
+- [Agent Prompt: /code-review part 6 medium effort mode](./system-prompts/agent-prompt-code-review-part-6-medium-effort-mode.md) (**312** tks) - Medium-effort /code-review prompt that favors precision with three finder angles, one-vote verification, and up to eight JSON findings.
+- [Agent Prompt: /code-review part 7 high effort mode](./system-prompts/agent-prompt-code-review-part-7-high-effort-mode.md) (**345** tks) - High-effort /code-review prompt that favors recall with three finder angles, recall-biased verification, and up to ten JSON findings.
 - [Agent Prompt: /code-review part 8 GitHub comment posting](./system-prompts/agent-prompt-code-review-part-8-github-comment-posting.md) (**152** tks) - Optional /code-review instructions for posting findings as GitHub inline PR comments when --comment is passed.
+- [Agent Prompt: /code-review part 9 fix application](./system-prompts/agent-prompt-code-review-part-9-fix-application.md) (**126** tks) - Optional /code-review instructions for applying findings to the working tree when --fix is passed.
 - [Agent Prompt: /rename auto-generate session name](./system-prompts/agent-prompt-rename-auto-generate-session-name.md) (**80** tks) - Prompt used by /rename (no args) to auto-generate a kebab-case session name from conversation context.
 - [Agent Prompt: /review-pr slash command](./system-prompts/agent-prompt-review-pr-slash-command.md) (**235** tks) - System prompt for reviewing GitHub pull requests with code analysis.
 - [Agent Prompt: /schedule slash command](./system-prompts/agent-prompt-schedule-slash-command.md) (**3130** tks) - Guides the user through scheduling, updating, listing, or running remote Claude Code agents on cron triggers via the Anthropic cloud API.
@@ -197,6 +198,8 @@ Parts of the main system prompt.
 - [System Prompt: Claude in Chrome browser automation](./system-prompts/system-prompt-claude-in-chrome-browser-automation.md) (**759** tks) - Instructions for using Claude in Chrome browser automation tools effectively.
 - [System Prompt: Communication style](./system-prompts/system-prompt-communication-style.md) (**297** tks) - Instructs Claude to give brief, user-facing updates at key moments during tool use, write concise end-of-turn summaries, match response format to task complexity, and avoid comments and planning documents in code.
 - [System Prompt: Context compaction summary](./system-prompts/system-prompt-context-compaction-summary.md) (**278** tks) - Prompt used for context compaction summary (for the SDK).
+- [System Prompt: Coordinator mode orchestration](./system-prompts/system-prompt-coordinator-mode-orchestration.md) (**3478** tks) - Provides coordinator-mode instructions for delegating work to worker agents, managing worker lifecycle, handling cross-session peers, and verifying delegated results.
+- [System Prompt: Coordinator worker instructions](./system-prompts/system-prompt-coordinator-worker-instructions.md) (**496** tks) - Instructions for worker agents executing coordinator-assigned tasks, covering scope control, concurrent branch changes, resumption, failure handling, and coordinator-facing output.
 - [System Prompt: Description part of memory instructions](./system-prompts/system-prompt-description-part-of-memory-instructions.md) (**148** tks) - Field for describing _what_ the memory is.  Part of a bigger effort to instruct Claude how to create memories.
 - [System Prompt: Doing tasks (ambitious tasks)](./system-prompts/system-prompt-doing-tasks-ambitious-tasks.md) (**47** tks) - Allow users to complete ambitious tasks; defer to user judgement on scope.
 - [System Prompt: Doing tasks (help and feedback)](./system-prompts/system-prompt-doing-tasks-help-and-feedback.md) (**24** tks) - How to inform users about help and feedback channels.
@@ -295,7 +298,7 @@ Text for large system reminders.
 
 ### Builtin Tool Descriptions
 
-- [Tool Description: AskUserQuestion](./system-prompts/tool-description-askuserquestion.md) (**287** tks) - Tool description for asking user questions.
+- [Tool Description: AskUserQuestion](./system-prompts/tool-description-askuserquestion.md) (**246** tks) - Tool description for asking user questions.
 - [Tool Description: BrowserBatch](./system-prompts/tool-description-browserbatch.md) (**159** tks) - Tool description for BrowserBatch, which executes multiple browser tool calls sequentially in one round trip.
 - [Tool Description: Computer](./system-prompts/tool-description-computer.md) (**161** tks) - Main description for the Chrome browser computer automation tool.
 - [Tool Description: CronCreate](./system-prompts/tool-description-croncreate.md) (**850** tks) - Describes the CronCreate tool for enqueuing one-shot or recurring cron-based jobs with jitter and off-minute scheduling guidance.
@@ -321,7 +324,7 @@ Text for large system reminders.
 - [Tool Description: TodoWrite](./system-prompts/tool-description-todowrite.md) (**2037** tks) - Tool description for creating and managing task lists.
 - [Tool Description: WebFetch](./system-prompts/tool-description-webfetch.md) (**297** tks) - Tool description for web fetch functionality.
 - [Tool Description: WebSearch](./system-prompts/tool-description-websearch.md) (**319** tks) - Tool description for web search functionality.
-- [Tool Description: Workflow](./system-prompts/tool-description-workflow.md) (**3819** tks) - Describes the Workflow tool for running deterministic multi-subagent orchestration scripts, including opt-in requirements, script metadata, agent hooks, concurrency, budgeting, quality patterns, and resume behavior.
+- [Tool Description: Workflow](./system-prompts/tool-description-workflow.md) (**4010** tks) - Describes the Workflow tool for running deterministic multi-subagent orchestration scripts, including opt-in requirements, script metadata, agent hooks, concurrency, budgeting, quality patterns, and resume behavior.
 - [Tool Description: Write](./system-prompts/tool-description-write.md) (**129** tks) - Tool for writing files to the local filesystem.
 
 **Additional notes for some Tool Descriptions**
@@ -330,7 +333,7 @@ Text for large system reminders.
 - [Tool Description: Agent (usage notes)](./system-prompts/tool-description-agent-usage-notes.md) (**791** tks) - Usage notes and instructions for the Task/Agent tool, including guidance on launching subagents, background execution, resumption, and worktree isolation.
 - [Tool Description: AskUserQuestion (preview field)](./system-prompts/tool-description-askuserquestion-preview-field.md) (**134** tks) - Instructions for using the HTML preview field on single-select question options to display visual artifacts like UI mockups, code snippets, and diagrams.
 - [Tool Description: Background monitor (streaming events)](./system-prompts/tool-description-background-monitor-streaming-events.md) (**1401** tks) - Describes the background monitor tool that streams stdout events from long-running scripts as chat notifications, with guidelines on script quality, output volume, and selective filtering.
-- [Tool Description: Bash (Git commit and PR creation instructions)](./system-prompts/tool-description-bash-git-commit-and-pr-creation-instructions.md) (**1611** tks) - Instructions for creating git commits and GitHub pull requests.
+- [Tool Description: Bash (Git commit and PR creation instructions)](./system-prompts/tool-description-bash-git-commit-and-pr-creation-instructions.md) (**1627** tks) - Instructions for creating git commits and GitHub pull requests.
 - [Tool Description: Bash (alternative — communication)](./system-prompts/tool-description-bash-alternative-communication.md) (**18** tks) - Bash tool alternative: output text directly instead of echo/printf.
 - [Tool Description: Bash (alternative — content search)](./system-prompts/tool-description-bash-alternative-content-search.md) (**27** tks) - Bash tool alternative: use Grep for content search instead of grep/rg.
 - [Tool Description: Bash (alternative — edit files)](./system-prompts/tool-description-bash-alternative-edit-files.md) (**27** tks) - Bash tool alternative: use Edit for file editing instead of sed/awk.

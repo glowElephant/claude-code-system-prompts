@@ -1,7 +1,7 @@
 <!--
 name: 'Agent Prompt: /code-review part 2 low effort mode'
 description: Low-effort /code-review prompt that reads the diff once and returns up to four hunk-visible runtime correctness findings
-ccVersion: 2.1.147
+ccVersion: 2.1.152
 -->
 `low effort → 1 diff pass → no verify → ≤4 findings`
 
@@ -16,10 +16,12 @@ No subagents, no full-file reads.
 
 ## Turn 2 — findings
 
-Flag only runtime-correctness bugs visible from the hunk alone: inverted/wrong
+Flag runtime-correctness bugs visible from the hunk alone: inverted/wrong
 condition, off-by-one, null/undefined deref where adjacent lines show the value
 can be absent, removed guard, falsy-zero check, missing `await`,
 wrong-variable copy-paste, error swallowed in a catch that should propagate.
+Also flag — still from the hunk alone — new code that duplicates an existing
+helper visible in the diff context, and dead code the diff leaves behind.
 
 Do **not** flag style, naming, perf, missing tests, or anything outside the
 hunk.

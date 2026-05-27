@@ -1,7 +1,7 @@
 <!--
 name: 'Tool Description: Workflow'
 description: Describes the Workflow tool for running deterministic multi-subagent orchestration scripts, including opt-in requirements, script metadata, agent hooks, concurrency, budgeting, quality patterns, and resume behavior
-ccVersion: 2.1.149
+ccVersion: 2.1.152
 variables:
   - WORKFLOW_TOOL_NAME
   - WORKFLOW_SCRIPT_PATH_NOTE
@@ -21,7 +21,16 @@ ONLY call this tool when the user has explicitly opted into multi-agent orchestr
 
 For any other task — even one that would clearly benefit from parallelism — do NOT call this tool. Use the Agent tool for individual subagents, or briefly describe what a multi-agent workflow could do and how much it would roughly cost, and ask the user whether to run it. Mention they can include "ultrawork" in a future message to skip the ask.
 
-When you do call it, the right move is often **hybrid**: scout inline first (list the files, find the channels, scope the diff) to discover the work-list, then call Workflow to pipeline over it. You don't need to know the shape before the *task* — only before the *orchestration step*.${""}
+When you do call it, the right move is often **hybrid**: scout inline first (list the files, find the channels, scope the diff) to discover the work-list, then call Workflow to pipeline over it. You don't need to know the shape before the *task* — only before the *orchestration step*.
+
+Common single-phase workflows you can chain across turns:
+- **Understand** — parallel readers over relevant subsystems → structured map
+- **Design** — judge panel of N independent approaches → scored synthesis
+- **Review** — dimensions → find → adversarially verify (example below)
+- **Research** — multi-modal sweep → deep-read → synthesize
+- **Migrate** — discover sites → transform each (worktree isolation) → verify
+
+For larger work, run several in sequence — read each result before deciding the next phase. You stay in the loop; each workflow is one well-scoped fan-out.${""}
 
 Every${WORKFLOW_TOOL_NAME} invocation persists its script to a file under the session directory and returns the path in the tool result. To iterate on a workflow, edit that file with Write/Edit and re-invoke Workflow with `{scriptPath: "<path>"}` instead of resending the full script.${WORKFLOW_SCRIPT_PATH_NOTE}
 
@@ -52,6 +61,8 @@ Script body hooks:
 - workflow(nameOrRef: string | {scriptPath: string}, args?: any): Promise<any> — run another workflow inline as a sub-step and return whatever it returns. Pass a name to invoke a saved workflow (same registry as {name: "..."}), or {scriptPath} to run a script file you Wrote earlier. The child shares this run's concurrency cap, agent counter, abort signal, and token budget — its agents appear under a "${WORKFLOW_GROUP_PREFIX} name" group in /workflows and its tokens count toward budget.spent(). The args param becomes the child's `args` global. Nesting is one level only: workflow() inside a child throws. Throws on unknown name / unreadable scriptPath / child syntax error; catch to handle gracefully.
 
 Subagents are told their final text IS the return value (not a human-facing message), so they return raw data. For structured output, use the schema option — validation happens at the tool-call layer so the model retries on mismatch.
+
+Workflow agents can reach all session-connected MCP tools via ToolSearch — schemas load on demand per agent. Caveat: interactively-authenticated MCP servers (e.g. claude.ai) may be absent in headless/cron runs.
 
 The script body runs in an async context — use await directly. Standard JS built-ins (JSON, Math, Array, etc.) are available — EXCEPT `Date.now()`/`Math.random()`/argless `new Date()`, which throw (they would break resume); pass timestamps in via `args`, stamp results after the workflow returns, and for randomness vary the agent prompt/label by index. No filesystem or Node.js API access.
 
