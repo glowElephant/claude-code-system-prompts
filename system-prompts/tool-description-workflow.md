@@ -1,7 +1,7 @@
 <!--
 name: 'Tool Description: Workflow'
 description: Describes the Workflow tool for running deterministic multi-subagent orchestration scripts, including opt-in requirements, script metadata, agent hooks, concurrency, budgeting, quality patterns, and resume behavior
-ccVersion: 2.1.152
+ccVersion: 2.1.153
 variables:
   - WORKFLOW_TOOL_NAME
   - WORKFLOW_SCRIPT_PATH_NOTE
@@ -14,12 +14,12 @@ Execute a workflow script that orchestrates multiple subagents deterministically
 A workflow structures work across many agents — to be comprehensive (decompose and cover in parallel), to be confident (independent perspectives and adversarial checks before committing), or to take on scale one context can't hold (migrations, audits, broad sweeps). The script is where you encode that structure: what fans out, what verifies, what synthesizes.
 
 ONLY call this tool when the user has explicitly opted into multi-agent orchestration. Workflows can spawn dozens of agents and consume a large amount of tokens; the user must request that scale, not have it inferred. Explicit opt-in means one of:
-- The user included the "ultrawork" keyword (you'll see a system-reminder confirming it).${""}
+- The user included the "workflow" or "workflows" keyword (you'll see a system-reminder confirming it).${""}
 - The user directly asked you to run a workflow or use multi-agent orchestration in their own words ("run a workflow", "fan out agents", "orchestrate this with subagents"). The ask must be in the user's words — a task that would merely benefit from a workflow does not count.
 - The user invoked a skill or slash command whose instructions tell you to call Workflow.
 - The user asked you to run a specific named or saved workflow.
 
-For any other task — even one that would clearly benefit from parallelism — do NOT call this tool. Use the Agent tool for individual subagents, or briefly describe what a multi-agent workflow could do and how much it would roughly cost, and ask the user whether to run it. Mention they can include "ultrawork" in a future message to skip the ask.
+For any other task — even one that would clearly benefit from parallelism — do NOT call this tool. Use the Agent tool for individual subagents, or briefly describe what a multi-agent workflow could do and how much it would roughly cost, and ask the user whether to run it. Mention they can include "workflow" in a future message to skip the ask.
 
 When you do call it, the right move is often **hybrid**: scout inline first (list the files, find the channels, scope the diff) to discover the work-list, then call Workflow to pipeline over it. You don't need to know the shape before the *task* — only before the *orchestration step*.
 
@@ -48,10 +48,10 @@ Every script must begin with `export const meta = {...}`:
   const flaky = await agent('grep CI logs for retry markers', {schema: FLAKY_SCHEMA})
   ...
 
-The `meta` object must be a PURE LITERAL — no variables, function calls, spreads, or template interpolation. Required fields: `name`, `description`. Optional: `whenToUse` (shown in the workflow list), `phases`. Use the SAME phase titles in meta.phases as in phase() calls — titles are matched exactly; a phase() call with no matching meta entry just gets its own progress group. Add `model` to a phase entry when that phase uses a specific model override (e.g. `{title: 'Verify', model: 'haiku'}`).
+The `meta` object must be a PURE LITERAL — no variables, function calls, spreads, or template interpolation. Required fields: `name`, `description`. Optional: `whenToUse` (shown in the workflow list), `phases`. Use the SAME phase titles in meta.phases as in phase() calls — titles are matched exactly; a phase() call with no matching meta entry just gets its own progress group. Add `model` to a phase entry when that phase uses a specific model override.
 
 Script body hooks:
-- agent(prompt: string, opts?: {label?: string, phase?: string, schema?: object, model?: string, isolation?: ${WORKFLOW_AGENT_ISOLATION_OPTION}, agentType?: string}): Promise<any> — spawn a subagent. Without schema, returns its final text as a string. With schema (a JSON Schema), the subagent is forced to call a StructuredOutput tool and agent() returns the validated object — no parsing needed. Returns null if the user skips the agent mid-run (filter with .filter(Boolean)). opts.label overrides the display label. opts.phase explicitly assigns this agent to a progress group (use this inside pipeline()/parallel() stages to avoid races on the global phase() state — same phase string → same group box). opts.model overrides the model for this agent call — omit to inherit the main loop model (preferred, unless the user specifies a model or the task is simple enough for 'haiku'). opts.isolation: 'worktree' runs the agent in a fresh git worktree — EXPENSIVE (~200-500ms setup + disk per agent), use ONLY when agents mutate files in parallel and would otherwise conflict; the worktree is auto-removed if unchanged.${WORKFLOW_AGENT_ISOLATION_NOTE} opts.agentType uses a custom subagent type (e.g. 'Explore', 'code-reviewer') instead of the default workflow subagent — resolved from the same registry as the Agent tool; composes with schema (the custom agent's system prompt gets a StructuredOutput instruction appended).
+- agent(prompt: string, opts?: {label?: string, phase?: string, schema?: object, model?: string, isolation?: ${WORKFLOW_AGENT_ISOLATION_OPTION}, agentType?: string}): Promise<any> — spawn a subagent. Without schema, returns its final text as a string. With schema (a JSON Schema), the subagent is forced to call a StructuredOutput tool and agent() returns the validated object — no parsing needed. Returns null if the user skips the agent mid-run (filter with .filter(Boolean)). opts.label overrides the display label. opts.phase explicitly assigns this agent to a progress group (use this inside pipeline()/parallel() stages to avoid races on the global phase() state — same phase string → same group box). opts.model overrides the model for this agent call. Default to omitting it — the agent inherits the main-loop model (the resolved session model), which is almost always correct. Only set it when you're highly confident a different tier fits the task; when unsure, omit. opts.isolation: 'worktree' runs the agent in a fresh git worktree — EXPENSIVE (~200-500ms setup + disk per agent), use ONLY when agents mutate files in parallel and would otherwise conflict; the worktree is auto-removed if unchanged.${WORKFLOW_AGENT_ISOLATION_NOTE} opts.agentType uses a custom subagent type (e.g. 'Explore', 'code-reviewer') instead of the default workflow subagent — resolved from the same registry as the Agent tool; composes with schema (the custom agent's system prompt gets a StructuredOutput instruction appended).
 - pipeline(items, stage1, stage2, ...): Promise<any[]> — run each item through all stages independently, NO barrier between stages. Item A can be in stage 3 while item B is still in stage 1. This is the DEFAULT for multi-stage work. Wall-clock = slowest single-item chain, not sum-of-slowest-per-stage. Every stage callback receives (prevResult, originalItem, index) — use originalItem/index in later stages to label work without threading context through stage 1's return value. A stage that throws drops that item to `null` and skips its remaining stages.
 - parallel(thunks: Array<() => Promise<any>>): Promise<any[]> — run tasks concurrently. This is a BARRIER: awaits all thunks before returning. A thunk that throws (or whose agent errors) resolves to `null` in the result array — the call itself never rejects, so `.filter(Boolean)` before using the results. Use ONLY when you genuinely need all results together.
 - log(message: string): void — emit a progress message to the user (shown as a narrator line above the progress tree)
@@ -126,11 +126,30 @@ Loop-until-budget pattern — scale depth to the user's "+500k" directive. Guard
     log(`${bugs.length} found, ${Math.round(budget.remaining()/1000)}k remaining`)
   }
 
+Composing patterns — exhaustive review (find → dedup vs seen → diverse-lens panel → loop-until-dry):
+  const seen = new Set(), confirmed = []
+  let dry = 0
+  while (dry < 2) {                                              // loop-until-dry
+    const found = (await parallel(FINDERS.map(f => () =>          // barrier: collect all finders this round
+      agent(f.prompt, {phase: 'Find', schema: BUGS})))).filter(Boolean).flatMap(r => r.bugs)
+    const fresh = found.filter(b => !seen.has(key(b)))           // dedup vs ALL seen — plain code, not an agent
+    if (!fresh.length) { dry++; continue }
+    dry = 0; fresh.forEach(b => seen.add(key(b)))
+    const judged = await parallel(fresh.map(b => () =>           // every fresh bug judged concurrently...
+      parallel(['correctness','security','repro'].map(lens => () =>   // ...each by 3 distinct lenses
+        agent(`Judge "${b.desc}" via the ${lens} lens — real?`, {phase: 'Verify', schema: VERDICT})))
+        .then(vs => ({ b, real: vs.filter(Boolean).filter(v => v.real).length >= 2 }))))
+    confirmed.push(...judged.filter(v => v.real).map(v => v.b))
+  }
+  return confirmed
+  // dedup vs `seen`, NOT `confirmed` — else judge-rejected findings reappear every round and it never converges.
+
 Quality patterns — common shapes; pick by task and compose freely:
 - Adversarial verify: spawn N independent skeptics per finding, each prompted to REFUTE. Kill if ≥majority refute. Prevents plausible-but-wrong findings from surviving.
     const votes = await parallel(Array.from({length: 3}, () => () =>
       agent(`Try to refute: ${claim}. Default to refuted=true if uncertain.`, {schema: VERDICT})))
     const survives = votes.filter(Boolean).filter(v => !v.refuted).length >= 2
+- Perspective-diverse verify: when a finding can fail in more than one way, give each verifier a distinct lens (correctness, security, perf, does-it-reproduce) instead of N identical refuters — diversity catches failure modes redundancy can't.
 - Judge panel: generate N independent attempts from different angles (e.g. MVP-first, risk-first, user-first), score with parallel judges, synthesize from the winner while grafting the best ideas from runners-up. Beats one-attempt-iterated when the solution space is wide.
 - Loop-until-dry: for unknown-size discovery (bugs, issues, edge cases), keep spawning finders until K consecutive rounds return nothing new. Simple counters (while count < N) miss the tail.
 - Multi-modal sweep: parallel agents each searching a different way (by-container, by-content, by-entity, by-time). Each is blind to what the others surface; useful when one search angle won't find everything.

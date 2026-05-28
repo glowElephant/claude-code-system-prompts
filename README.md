@@ -34,7 +34,7 @@ Download it and try it out for free!  **https://piebald.ai/**
 > [!important]
 > **NEW (January 23, 2026): We've added all of Claude Code's ~40 system reminders to this list&mdash;see [System Reminders](#system-reminders).**
 
-This repository contains an up-to-date list of all Claude Code's various system prompts and their associated token counts as of **[Claude Code v2.1.152](https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.152) (May 26th, 2026).**  It also contains a [**CHANGELOG.md**](./CHANGELOG.md) for the system prompts across 188 versions since v2.0.14.  From the team behind [<img src="https://github.com/Piebald-AI/piebald/raw/main/assets/logo.svg" width="15"> **Piebald.**](https://piebald.ai/)
+This repository contains an up-to-date list of all Claude Code's various system prompts and their associated token counts as of **[Claude Code v2.1.153](https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.153) (May 27th, 2026).**  It also contains a [**CHANGELOG.md**](./CHANGELOG.md) for the system prompts across 189 versions since v2.0.14.  From the team behind [<img src="https://github.com/Piebald-AI/piebald/raw/main/assets/logo.svg" width="15"> **Piebald.**](https://piebald.ai/)
 
 **This repository is updated within minutes of each Claude Code release.  See the [changelog](./CHANGELOG.md), and follow [@PiebaldAI](https://x.com/PiebaldAI) on X for a summary of the system prompt changes in each release.**
 
@@ -289,7 +289,6 @@ Text for large system reminders.
 - [System Reminder: Task tools reminder](./system-prompts/system-reminder-task-tools-reminder.md) (**111** tks) - Reminder to use task tracking tools.
 - [System Reminder: Team Coordination](./system-prompts/system-reminder-team-coordination.md) (**268** tks) - System reminder for team coordination.
 - [System Reminder: Team Shutdown](./system-prompts/system-reminder-team-shutdown.md) (**136** tks) - System reminder for team shutdown.
-- [System Reminder: Thinking frequency tuning](./system-prompts/system-reminder-thinking-frequency-tuning.md) (**129** tks) - Instructs Claude to treat system-reminder tags as harness instructions and calibrate thinking frequency based on task complexity.
 - [System Reminder: TodoWrite reminder](./system-prompts/system-reminder-todowrite-reminder.md) (**86** tks) - Reminder to use TodoWrite tool for task tracking.
 - [System Reminder: Token usage](./system-prompts/system-reminder-token-usage.md) (**39** tks) - Current token usage statistics.
 - [System Reminder: USD budget](./system-prompts/system-reminder-usd-budget.md) (**42** tks) - Current USD budget statistics.
@@ -324,7 +323,7 @@ Text for large system reminders.
 - [Tool Description: TodoWrite](./system-prompts/tool-description-todowrite.md) (**2037** tks) - Tool description for creating and managing task lists.
 - [Tool Description: WebFetch](./system-prompts/tool-description-webfetch.md) (**297** tks) - Tool description for web fetch functionality.
 - [Tool Description: WebSearch](./system-prompts/tool-description-websearch.md) (**319** tks) - Tool description for web search functionality.
-- [Tool Description: Workflow](./system-prompts/tool-description-workflow.md) (**4010** tks) - Describes the Workflow tool for running deterministic multi-subagent orchestration scripts, including opt-in requirements, script metadata, agent hooks, concurrency, budgeting, quality patterns, and resume behavior.
+- [Tool Description: Workflow](./system-prompts/tool-description-workflow.md) (**4449** tks) - Describes the Workflow tool for running deterministic multi-subagent orchestration scripts, including opt-in requirements, script metadata, agent hooks, concurrency, budgeting, quality patterns, and resume behavior.
 - [Tool Description: Write](./system-prompts/tool-description-write.md) (**129** tks) - Tool for writing files to the local filesystem.
 
 **Additional notes for some Tool Descriptions**
@@ -333,7 +332,7 @@ Text for large system reminders.
 - [Tool Description: Agent (usage notes)](./system-prompts/tool-description-agent-usage-notes.md) (**791** tks) - Usage notes and instructions for the Task/Agent tool, including guidance on launching subagents, background execution, resumption, and worktree isolation.
 - [Tool Description: AskUserQuestion (preview field)](./system-prompts/tool-description-askuserquestion-preview-field.md) (**134** tks) - Instructions for using the HTML preview field on single-select question options to display visual artifacts like UI mockups, code snippets, and diagrams.
 - [Tool Description: Background monitor (streaming events)](./system-prompts/tool-description-background-monitor-streaming-events.md) (**1401** tks) - Describes the background monitor tool that streams stdout events from long-running scripts as chat notifications, with guidelines on script quality, output volume, and selective filtering.
-- [Tool Description: Bash (Git commit and PR creation instructions)](./system-prompts/tool-description-bash-git-commit-and-pr-creation-instructions.md) (**1627** tks) - Instructions for creating git commits and GitHub pull requests.
+- [Tool Description: Bash (Git commit and PR creation instructions)](./system-prompts/tool-description-bash-git-commit-and-pr-creation-instructions.md) (**1620** tks) - Instructions for creating git commits and GitHub pull requests.
 - [Tool Description: Bash (alternative — communication)](./system-prompts/tool-description-bash-alternative-communication.md) (**18** tks) - Bash tool alternative: output text directly instead of echo/printf.
 - [Tool Description: Bash (alternative — content search)](./system-prompts/tool-description-bash-alternative-content-search.md) (**27** tks) - Bash tool alternative: use Grep for content search instead of grep/rg.
 - [Tool Description: Bash (alternative — edit files)](./system-prompts/tool-description-bash-alternative-edit-files.md) (**27** tks) - Bash tool alternative: use Edit for file editing instead of sed/awk.
