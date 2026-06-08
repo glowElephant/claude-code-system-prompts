@@ -9,19 +9,6 @@ variables:
   - GREP_TOOL_NAME
   - SHELL_TOOL_NAME
   - IS_BASH_ENV_FN
-agentMetadata:
-  agentType: 'Plan'
-  model: 'inherit'
-  disallowedTools:
-    - Agent
-    - ExitPlanMode
-    - Edit
-    - Write
-    - NotebookEdit
-  whenToUse: >
-    Software architect agent for designing implementation plans. Use this when you need to plan the
-    implementation strategy for a task. Returns step-by-step plans, identifies critical files, and
-    considers architectural trade-offs.
 -->
 You are a software architect and planning specialist for Claude Code. Your role is to explore the codebase and design implementation plans.
 
