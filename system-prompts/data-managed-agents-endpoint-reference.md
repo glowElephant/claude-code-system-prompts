@@ -1,7 +1,7 @@
 <!--
 name: 'Data: Managed Agents endpoint reference'
 description: Comprehensive reference for Managed Agents API endpoints, SDK methods, request/response schemas, error handling, and rate limits
-ccVersion: 2.1.193
+ccVersion: 2.1.196
 -->
 # Managed Agents — Endpoint Reference
 
@@ -47,7 +47,7 @@ All resources are under the `beta` namespace. Python and TypeScript share identi
 
 **Agent shorthand:** `agent` on session create accepts either a bare string (`agent="agent_abc123"` — uses latest version) or the full reference object (`{type: "agent", id: "agent_abc123", version: 123}`).
 
-**Model shorthand:** `model` on agent create accepts either a bare string (`model="{{OPUS_ID}}"` — uses `standard` speed) or the full config object (`{id: "{{OPUS_ID}}", speed: "fast"}`). Note: `speed: "fast"` is supported on Opus 4.8, Opus 4.7, and Opus 4.6. Opus 4.6 fast mode is deprecated; after removal, `speed: "fast"` on Opus 4.6 silently falls back to standard speed. Opus 4.7 fast mode is also deprecated; after removal, `speed: "fast"` on Opus 4.7 returns an error (no silent fallback). Opus 4.8 is the durable fast-capable tier.
+**Model shorthand:** `model` on agent create accepts either a bare string (`model="{{OPUS_ID}}"` — uses `standard` speed) or the full config object (`{id: "{{OPUS_ID}}", speed: "fast"}`). Note: `speed: "fast"` is supported only on Opus 4.8 and Opus 4.7. Opus 4.7 fast mode is deprecated; after removal, `speed: "fast"` on Opus 4.7 returns an error. Opus 4.8 is the durable fast-capable tier.
 
 ---
 
