@@ -34,7 +34,7 @@ Download it and try it out for free!  **https://piebald.ai/**
 > [!tip]
 > **NEW (June 12, 2026):** We've greatly expanded this list with many more of Claude Code's prompts&mdash;**from 350 to 515 (+165)**&mdash;our most complete coverage yet.
 
-This repository contains an up-to-date list of all Claude Code's various system prompts and their associated token counts as of **[Claude Code v2.1.208](https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.208) (July 13th, 2026).**  It also contains a [**CHANGELOG.md**](./CHANGELOG.md) for the system prompts across 234 versions since v2.0.14.  From the team behind [<img src="https://github.com/Piebald-AI/piebald/raw/main/assets/logo.svg" width="15"> **Piebald.**](https://piebald.ai/)
+This repository contains an up-to-date list of all Claude Code's various system prompts and their associated token counts as of **[Claude Code v2.1.209](https://www.npmjs.com/package/@anthropic-ai/claude-code/v/2.1.209) (July 13th, 2026).**  It also contains a [**CHANGELOG.md**](./CHANGELOG.md) for the system prompts across 235 versions since v2.0.14.  From the team behind [<img src="https://github.com/Piebald-AI/piebald/raw/main/assets/logo.svg" width="15"> **Piebald.**](https://piebald.ai/)
 
 **This repository is updated within minutes of each Claude Code release.  See the [changelog](./CHANGELOG.md), and follow [@PiebaldAI](https://x.com/PiebaldAI) on X for a summary of the system prompt changes in each release.**
 
@@ -153,6 +153,10 @@ Sub-agents and utilities.
 The content of various template files embedded in Claude Code.
 
 - [Data: Anthropic CLI](./system-prompts/data-anthropic-cli.md) (**4615** tks) - Reference documentation for the ant CLI covering installation, authentication, command structure, input and output shaping, managed agents workflows, and scripting patterns.
+- [Data: Artifact MCP connector guidance](./system-prompts/data-artifact-mcp-connector-guidance.md) (**599** tks) - Explains how Artifact MCP manifests identify claude.ai connectors and discover upstream tool names.
+- [Data: Artifact connected-source guidance](./system-prompts/data-artifact-connected-source-guidance.md) (**192** tks) - Directs Artifact authors to load the runtime capabilities skill before declaring live connector access.
+- [Data: Artifact connector call observation requirement](./system-prompts/data-artifact-connector-call-observation-requirement.md) (**199** tks) - Requires observing a connector tool request and response before publishing an Artifact that calls it.
+- [Data: Artifact runtime capability declarations](./system-prompts/data-artifact-runtime-capability-declarations.md) (**271** tks) - Defines Artifact runtime capability declaration, carry-forward, clearing, replacement, and contract pinning semantics.
 - [Data: Background tasks changed event schema](./system-prompts/data-background-tasks-changed-event-schema.md) (**237** tks) - Schema description for the background_tasks_changed system event and its replace-set semantics.
 - [Data: Claude API reference — C#](./system-prompts/data-claude-api-reference-c.md) (**7777** tks) - C# SDK reference including installation, client initialization, basic requests, streaming, and tool use.
 - [Data: Claude API reference — Go](./system-prompts/data-claude-api-reference-go.md) (**3268** tks) - Go SDK reference including installation, client initialization, model constants, basic requests, and thinking.
