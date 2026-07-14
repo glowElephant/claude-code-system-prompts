@@ -1,7 +1,7 @@
 <!--
 name: 'Data: Data visualization reference palette'
 description: Reference palette instance for the data visualization method, including ramps, categorical order, status colors, surfaces, and typography
-ccVersion: 2.1.208
+ccVersion: 2.1.210
 -->
 # Reference palette
 
@@ -57,20 +57,32 @@ dark surface, not a separate palette:
 | Slot | Hue | Light | Dark |
 |------|-----|-------|------|
 | 1 | blue | `#2a78d6` | `#3987e5` |
-| 2 | aqua | `#1baf7a` | `#199e70` |
-| 3 | yellow | `#eda100` | `#c98500` |
-| 4 | green | `#008300` | `#008300` |
-| 5 | violet | `#4a3aa7` | `#9085e9` |
-| 6 | red | `#e34948` | `#e66767` |
-| 7 | magenta | `#e87ba4` | `#d55181` |
-| 8 | orange | `#eb6834` | `#d95926` |
+| 2 | green | `#008300` | `#008300` |
+| 3 | magenta | `#e87ba4` | `#d55181` |
+| 4 | yellow | `#eda100` | `#c98500` |
+| 5 | aqua | `#1baf7a` | `#199e70` |
+| 6 | orange | `#eb6834` | `#d95926` |
+| 7 | violet | `#4a3aa7` | `#9085e9` |
+| 8 | red | `#e34948` | `#e66767` |
 
-Light-mode worst adjacent CVD ΔE is 24.2 — well clear of the ≥12 target. Three
-light-mode slots (aqua, yellow, magenta) sit below 3:1 contrast on the light
-surface: the **relief rule** applies (ship visible direct labels or the table
-view). The dark steps were chosen for the dark band (OKLCH L ≈ 0.48–0.67, ≥ 3:1
-on the dark surface) and validated as a set — worst adjacent ΔE 10.3, the floor
-band, so four-plus series lean on direct labels or texture in dark mode too.
+This order passes every hard gate in both modes on the default *adjacent*
+pairlist (stacks, bars, lines): worst adjacent CVD ΔE 9.1 light / 8.4 dark
+(OKLab ×100, ≥8 target), worst adjacent normal-vision ΔE 19.6 light / 19.3
+dark (≥15 floor). Under `--pairs all` (scatter, bubble, choropleth, small
+multiples) the full eight cannot clear the floors — with all 28 pairs in
+play no ordering can (the pairlist no longer depends on order), and
+re-stepping is off the table by the documented-palette rule — so those
+chart forms carry a series cap: **the first four slots validate all-pairs
+in both modes** (the dark run lands in the 6–8 CVD floor band, so ship
+secondary encoding — direct labels, gaps, or texture). Past four, fold to
+"Other", facet, or label directly. Three light-mode slots (magenta, yellow, aqua)
+sit below 3:1 contrast on the light surface: the **relief rule** applies (ship
+visible direct labels or the table view). The dark steps were chosen for the
+dark band (OKLCH L ≈ 0.48–0.67, ≥ 3:1 on the dark surface) and validated as a
+set. (This order replaced an earlier default in July 2026 — same eight hues
+and steps, re-ordered — after the earlier order failed the normal-vision floor
+in both modes.) When you swap in your own ramps, hold your palette to the full
+gate.
 
 The slot **ordering** is the CVD-safety mechanism, not cosmetic — it was derived
 by enumerating orderings and picking the one that maximizes the minimum adjacent
@@ -80,7 +92,7 @@ same: run the validator on candidate orderings and keep the best.
 ## Sequential hue
 
 Default single hue: **blue**, light→dark. When two sequential contexts appear at
-once, the second takes the next categorical slot's hue (aqua), each as its own
+once, the second takes the next categorical slot's hue (green), each as its own
 one-hue ramp.
 
 | step | hex | step | hex | step | hex | step | hex |
