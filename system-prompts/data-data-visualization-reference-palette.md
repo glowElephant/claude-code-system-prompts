@@ -1,7 +1,7 @@
 <!--
 name: 'Data: Data visualization reference palette'
 description: Reference palette instance for the data visualization method, including ramps, categorical order, status colors, surfaces, and typography
-ccVersion: 2.1.210
+ccVersion: 2.1.211
 -->
 # Reference palette
 
@@ -128,7 +128,16 @@ Dark: same four steps — all clear 3:1 on the dark surface (`#1a1a19`) and rema
 distinct from the dark categorical slots. On the light surface, warning and
 serious are sub-3:1 by design; the **icon + label** pairing is the mitigation, so
 a status color never carries meaning alone. These steps are deliberately distinct
-from the categorical slots so a status color never impersonates a series.
+from the categorical slots so a status color never impersonates a series —
+distinct enough that nothing collides at a glance, not enough for hue to
+carry the distinction unaided: measured by the series floor's own bar
+(unsimulated ΔE ≥ 15), around nine categorical-vs-status pairs per mode sit
+below 15 — in light mode red vs critical and yellow vs warning both measure
+4.8, and the light success text green `#006300` sits 10.1 from the series
+green; green vs status-good (9.7) holds in both modes, since both hexes are
+mode-invariant. The rule is general: any series color beside a
+same-hue-family status or delta cue leans on the icon + label pairing and on
+placement; never on hue alone.
 
 ## Texture fill (the accessibility channel)
 
